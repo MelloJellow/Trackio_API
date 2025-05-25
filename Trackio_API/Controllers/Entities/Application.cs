@@ -3,7 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Trackio_API.Controllers.Entities
 {
-    
+    public enum ApplicationStatus
+    {
+        Pending, 
+        Accepted, 
+        Rejected
+    }
     public class Application
     {
         [Key]
@@ -15,7 +20,9 @@ namespace Trackio_API.Controllers.Entities
         [Required]
         public int JobId { get; set; }
 
-        public string Status { get; set; } = "Pending";
+        [Required]
+        [EnumDataType(typeof(ApplicationStatus))]
+        public ApplicationStatus Status { get; set; } = ApplicationStatus.Pending;
 
         //Navigate 
         [ForeignKey(nameof(UserId))]
